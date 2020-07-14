@@ -1,0 +1,120 @@
+﻿@model IEnumerable<ProyectoSanoCenter.Models.Reto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    @*<thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Imagen)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreReto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valoracion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaLimite)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Entrenador)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Imagen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreReto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valoracion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaLimite)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Entrenador.Id)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    </td>
+                </tr>*@
+    <tbody>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                @foreach (Reto reto in Model)
+                {
+
+                    <div class="card col-sm 12 col-md-6 col-lg-4">
+
+                        <img src="@reto.Imagen" class="ImagenReto" alt="Error al cargar" />
+
+                        <button data-toggle="collapse" href="#collapse-@reto.Id" type="button" onclick="enviarBusqueda()" class="btn btn-danger">@reto.NombreReto</button>
+                        <div class="collapse" id="collapse-@reto.Id">
+                                                       <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+
+                                    <h5>@reto.NombreReto</h5>
+
+                                        <p>@reto.Series</p>
+                                        <p>@reto.Repeticiones</p>
+                                        <p>@reto.Dificultad</p>
+                                    @foreach (var EjercicioRetos in reto.EjercicioRetos)
+                                    {
+
+                                        <p>@EjercicioRetos.Ejercicio.Id)</p>
+                                    }
+
+                                    <p>@reto.FechaLimite.ToString("dd/MM/yyyy")</p>
+
+                                    @*@if (reto.EjercicioRetos.Count > 0)
+        {
+            <p><b>EJERCICIOS</b></p>
+            @foreach (var EjercicioRetos in reto.EjercicioRetos)
+            {
+                <p>@reto.Id</p>
+            }
+        }*@
+
+                                </div>
+                            </div>
+                            <form id="formBusqueda">
+
+                                <button type="button" onclick="enviarBusqueda()" class="btn btn-danger">Apuntarme</button>
+
+                            </form>
+                        </div>
+                    </div>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <p>
+                            <a asp-action="Edit" asp-route-id="@reto.Id">Editar</a>
+                            <a asp-action="Details" asp-route-id="@reto.Id">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@reto.Id">Eliminar</a>
+                        </p>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </tbody>
+</table>
+

@@ -1,0 +1,77 @@
+﻿@model ProyectoSanoCenter.Models.EjercicioRetoVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Reto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Reto.Imagen" class="control-label"></label>
+                <input asp-for="Reto.Imagen" class="form-control" />
+                <span asp-validation-for="Reto.Imagen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.NombreReto" class="control-label"></label>
+                <input asp-for="Reto.NombreReto" class="form-control" />
+                <span asp-validation-for="Reto.NombreReto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @{
+                    int contador = 0;
+                    foreach (Ejercicio item in Model.Ejercicios)
+                    {
+                        <label for="ejercicio + @contador" class="control-label">@item.NombreEjercicio</label>
+                        //Nombre: item.Ejercicio.NombreEjercicio
+                        <input type="checkbox" name="ejercicios" value="@item.Id" id="ejercicio + @contador" />
+
+                        contador += 1;
+
+                    }
+                }
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.Dificultad" class="control-label"></label>
+                <input asp-for="Reto.Dificultad" class="form-control" />
+                <span asp-validation-for="Reto.Dificultad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.Series" class="control-label"></label>
+                <input asp-for="Reto.Series" class="form-control" />
+                <span asp-validation-for="Reto.Series" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.Repeticiones" class="control-label"></label>
+                <input asp-for="Reto.Repeticiones" class="form-control" />
+                <span asp-validation-for="Reto.Repeticiones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.FechaLimite" class="control-label"></label>
+                <input asp-for="Reto.FechaLimite" class="form-control" />
+                <span asp-validation-for="Reto.FechaLimite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reto.EntrenadorId" class="control-label"></label>
+                <select asp-for="Reto.EntrenadorId" class="form-control" asp-items="ViewBag.EntrenadorId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
